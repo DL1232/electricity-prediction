@@ -1,9 +1,16 @@
-package com.decade.electricityprediction.dto;
+package com.decade.electricityprediction.web.dto;
 
+
+//import com.decade.electricityprediction.validation.PasswordMatches;
+
+import com.decade.electricityprediction.validation.ValidEmail;
+import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Data
+//@PasswordMatches
 public class UserDto {
 
     @NotNull
@@ -17,10 +24,12 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String password;
+
     private String matchingPassword;
 
     @NotNull
     @NotEmpty
+    @ValidEmail
     private String email;
 
 }

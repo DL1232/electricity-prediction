@@ -32,21 +32,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/anonymous*").anonymous()
-                .antMatchers("/login*").permitAll()
+                // 注册与登录请求均放行
+                .antMatchers("/user/register").permitAll()
+                .antMatchers("/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/homepage.html", true)
-                .failureUrl("/login.html?error=true")
+                // 登录界面 URL 默认 GET 请求
+                .loginPage("/user/login")
+                // 处理登录请求 默认 POST 请求
+                .loginProcessingUrl("/user/login")
+                // 登录成功后跳转 URL
+                .defaultSuccessUrl("/index.html", true)
+                // 登录失败后跳转 URL
+                .failureUrl("/login?error=true")
+                // 登录失败处理逻辑
 //                .failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout")
                 .deleteCookies("JSESSIONID");
 //                .logoutSuccessHandler(logoutSuccessHandler());
-        // ...
     }
 
     @Bean
