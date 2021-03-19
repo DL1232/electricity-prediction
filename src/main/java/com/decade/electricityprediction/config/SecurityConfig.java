@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 注册与登录请求均放行
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/user/login").permitAll()
+                .antMatchers("/favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

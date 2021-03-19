@@ -1,27 +1,26 @@
 package com.decade.electricityprediction.persistence.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "eps_user")
-public class User implements Serializable {
+@Table(name = "eps_permission")
+public class Permission implements GrantedAuthority {
 
     @Id
     @Column(name = "id")
-    // 主键 自增策略
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
-    private String username;
+    @Column(name = "permission_name")
+    private String permissionName;
 
-    @Column(name = "user_password")
-    private String password;
+    @Column(name = "permission_desc")
+    private String permissionDesc;
 
     @Column(name = "is_deleted")
     private Integer deleted;
@@ -31,4 +30,9 @@ public class User implements Serializable {
 
     @Column(name = "gmt_modified")
     private LocalDateTime gmtModified;
+
+    @Override
+    public String getAuthority() {
+        return permissionName;
+    }
 }

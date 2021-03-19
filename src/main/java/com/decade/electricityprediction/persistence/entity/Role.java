@@ -8,20 +8,19 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "eps_user")
-public class User implements Serializable {
+@Table(name = "eps_role")
+public class Role implements Serializable {
 
     @Id
     @Column(name = "id")
-    // 主键 自增策略
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
-    private String username;
+    @Column(name = "role_name")
+    private String roleName;
 
-    @Column(name = "user_password")
-    private String password;
+    @Column(name = "role_desc")
+    private String roleDesc;
 
     @Column(name = "is_deleted")
     private Integer deleted;
