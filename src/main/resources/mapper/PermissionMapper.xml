@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.decade.electricityprediction.persistence.mapper.PermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.decade.electricityprediction.persistence.entity.PermissionEntity">
+        <id column="id" property="id"/>
+        <result column="permission_name" property="permissionName"/>
+        <result column="permission_desc" property="permissionDesc"/>
+        <result column="is_deleted" property="deleted"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, permission_name, permission_desc, is_deleted, gmt_create, gmt_modified
+    </sql>
+
+    <select id="findByRoleId" resultMap="BaseResultMap" parameterType="long">
+        SELECT eps_permission.id              AS id,
+               eps_permission.permission_name AS permission_name,
+               eps_permission.permission_desc AS permission_desc,
+               eps_permission.is_deleted      AS is_deleted,
+               eps_permission.gmt_create      AS gmt_create,
+               eps_permission.gmt_modified    AS gmt_modified
+        FROM electricity_prediction.eps_role_permission_relation
+                 LEFT JOIN electricity_prediction.eps_permission
+                           ON eps_role_permission_relation.permission_id = eps_permission.id
+        WHERE eps_role_permission_relation.role_id = #{userId}
+    </select>
+
+</mapper>
