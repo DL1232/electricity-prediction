@@ -1,5 +1,6 @@
 package com.decade.electricityprediction.persistence.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -37,6 +38,7 @@ public class PermissionEntity extends Model<PermissionEntity> implements Granted
 
     private String permissionDesc;
 
+    @TableField("is_deleted")
     private Integer deleted;
 
     private LocalDateTime gmtCreate;

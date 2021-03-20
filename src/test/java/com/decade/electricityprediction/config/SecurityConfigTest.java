@@ -1,5 +1,6 @@
 package com.decade.electricityprediction.config;
 
+import com.decade.electricityprediction.ElectricityPredictionApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
-@SpringBootTest
+@SpringBootTest(classes = ElectricityPredictionApplication.class)
 public class SecurityConfigTest {
 
     @Autowired
@@ -16,8 +17,8 @@ public class SecurityConfigTest {
     @Test
     public void encodeTest() {
         // 加密测试
-        String decade = passwordEncoder.encode("decade");
-        log.info("\"decade\"的加密结果:{}", decade);
+        String decade = passwordEncoder.encode("admin");
+        log.info("\"lidongjie\"的加密结果:{}", decade);
     }
 
     @Test
