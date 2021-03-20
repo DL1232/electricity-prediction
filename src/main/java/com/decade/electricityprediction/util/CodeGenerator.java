@@ -2,18 +2,11 @@ package com.decade.electricityprediction.util;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 代码生成器
@@ -65,7 +58,7 @@ public class CodeGenerator {
         // service impl 命名方式
         gc.setServiceImplName("%sServiceImpl");
         // controller 命名方式
-        gc.setControllerName("%sService");
+        gc.setControllerName("%sController");
         // 指定生成的主键的ID类型
         gc.setIdType(IdType.AUTO);
         mpg.setGlobalConfig(gc);
@@ -107,7 +100,7 @@ public class CodeGenerator {
         // 数据表前缀
         strategy.setTablePrefix("eps");
         // 字段前缀
-        strategy.setFieldPrefix("role", "user", "permission");
+        strategy.setFieldPrefix("is");
         // 6 个自定义 省略了
         // 需要包含的表名，当enableSqlFilter为false时，允许正则表达式（与exclude二选一配置）
         strategy.setInclude("eps_user", "eps_role", "eps_permission");
@@ -128,7 +121,7 @@ public class CodeGenerator {
         pc.setService("service");
         pc.setServiceImpl("service.impl");
         pc.setMapper("persistence.mapper");
-        // pc.setXml();
+        pc.setXml("mapper");
         pc.setController("web.controller");
         // pc.setPathInfo();
         mpg.setPackageInfo(pc);

@@ -1,9 +1,9 @@
 package com.decade.electricityprediction.web.dto;
 
 
-//import com.decade.electricityprediction.validation.PasswordMatches;
+//import com.decade.electricityprediction.web.validation.PasswordMatches;
 
-import com.decade.electricityprediction.validation.ValidEmail;
+import com.decade.electricityprediction.web.validation.ValidEmail;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

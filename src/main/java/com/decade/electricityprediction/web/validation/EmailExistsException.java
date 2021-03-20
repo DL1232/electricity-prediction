@@ -1,4 +1,4 @@
-package com.decade.electricityprediction.validation;
+package com.decade.electricityprediction.web.validation;
 
 @SuppressWarnings("serial")
 public class EmailExistsException extends Throwable {

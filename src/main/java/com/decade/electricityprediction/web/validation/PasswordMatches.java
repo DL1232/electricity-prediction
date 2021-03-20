@@ -1,4 +1,4 @@
-//package com.decade.electricityprediction.validation;
+//package com.decade.electricityprediction.web.validation;
 //
 //import javax.validation.Constraint;
 //import javax.validation.Payload;

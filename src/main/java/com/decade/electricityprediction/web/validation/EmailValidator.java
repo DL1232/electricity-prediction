@@ -1,4 +1,4 @@
-package com.decade.electricityprediction.validation;
+package com.decade.electricityprediction.web.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

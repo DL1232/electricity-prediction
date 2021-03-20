@@ -1,34 +1,44 @@
 package com.decade.electricityprediction.security;
 
-import com.decade.electricityprediction.persistence.entity.User;
-import com.decade.electricityprediction.persistence.repository.PermissionRepository;
-import com.decade.electricityprediction.persistence.repository.RoleRepository;
-import com.decade.electricityprediction.persistence.repository.UserRepository;
+import com.decade.electricityprediction.persistence.entity.PermissionEntity;
+import com.decade.electricityprediction.persistence.entity.UserEntity;
+import com.decade.electricityprediction.persistence.mapper.PermissionMapper;
+import com.decade.electricityprediction.persistence.mapper.RoleMapper;
+import com.decade.electricityprediction.persistence.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    public UserRepository userRepository;
+    public UserMapper userMapper;
 
     @Autowired
-    public RoleRepository roleRepository;
+    public RoleMapper roleMapper;
 
     @Autowired
-    public PermissionRepository permissionRepository;
+    PermissionMapper permissionMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        UserEntity user = userMapper.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        return null;
+        Long roleId = roleMapper.findRoleIdByUserId(user.getId());
+        List<PermissionEntity> permissionList = permissionMapper.findByRoleId(roleId);
+
+        MyUserDetails myUserDetails = new MyUserDetails();
+        myUserDetails.setUsername(user.getUserName());
+        myUserDetails.setPassword(user.getUserPassword());
+        myUserDetails.setPermissionList(permissionList);
+        return myUserDetails;
     }
 
 }

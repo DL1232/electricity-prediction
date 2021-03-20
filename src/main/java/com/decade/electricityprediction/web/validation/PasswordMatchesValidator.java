@@ -1,4 +1,4 @@
-//package com.decade.electricityprediction.validation;
+//package com.decade.electricityprediction.web.validation;
 //
 //import com.baeldung.web.dto.UserDto;
 //

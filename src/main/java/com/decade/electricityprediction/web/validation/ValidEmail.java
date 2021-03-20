@@ -1,4 +1,4 @@
-package com.decade.electricityprediction.validation;
+package com.decade.electricityprediction.web.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,16 +9,15 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Documented
-//@Constraint(validatedBy = PasswordConstraintValidator.class)
 @Target({ TYPE, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-public @interface ValidPassword {
+@Constraint(validatedBy = EmailValidator.class)
+@Documented
+public @interface ValidEmail {
 
-    String message() default "Invalid Password";
+    String message() default "Invalid Email";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 }

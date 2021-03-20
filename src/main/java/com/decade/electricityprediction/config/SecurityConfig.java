@@ -1,9 +1,13 @@
 package com.decade.electricityprediction.config;
 
+import com.decade.electricityprediction.security.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,16 +17,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    public MyUserDetailsService myUserDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 认证相关配置
-        // authentication manager (see below)
-        auth.inMemoryAuthentication()
-                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-                .and()
-                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
+        auth.userDetailsService(myUserDetailsService);
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(HttpMethod.GET,
+                // 放行 swagger ui
+                "/swagger-ui.html",
+                "/swagger-ui/*",
+                "/swagger-resources/**",
+                "/v2/api-docs",
+                "/v3/api-docs",
+                "/webjars/**"
+        );
     }
 
     @Override
@@ -35,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 注册与登录请求均放行
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/user/login").permitAll()
-                .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/swagger-ui/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
