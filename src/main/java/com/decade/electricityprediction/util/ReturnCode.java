@@ -9,30 +9,25 @@ public enum ReturnCode {
     /**
      * 操作成功
      */
-    SUCCESS(200, "ok"),
+    SUCCESS(200, "操作成功"),
 
     /**
-     * 操作失败
+     * 400 用户名或密码错误
      */
-    FAIL(400, "fail"),
+    LOGIN_FAILURE(400, "用户名或密码错误"),
 
     /**
-     * 空指针异常
+     * 403 Forbidden 没有权限
      */
-    NullPointerException(400, "NPE_MSG"),
-
-    /**
-     * 自定义异常之返回值为空
-     */
-    NullResponseException(400, "NRE_MSG");
+    FORBIDDEN(403, "没有访问权限");
 
     ReturnCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    Integer code;
-    String message;
+    private Integer code;
+    private String message;
 
     public Integer getCode() {
         return code;

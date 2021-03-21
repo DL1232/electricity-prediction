@@ -3,6 +3,9 @@ package com.decade.electricityprediction.config;
 import com.decade.electricityprediction.security.JwtFilter;
 import com.decade.electricityprediction.security.JwtLoginFilter;
 import com.decade.electricityprediction.security.MyUserDetailsService;
+import com.decade.electricityprediction.util.JsonUtil;
+import com.decade.electricityprediction.util.ReturnCode;
+import com.decade.electricityprediction.util.ReturnVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 认证相关配置
+        // 使用 自定义 的从数据库查取权限
         auth.userDetailsService(myUserDetailsService);
     }
 
@@ -43,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(HttpMethod.GET,
                 // 放行 swagger ui
-                // 这里放行不会经过 spring security
+                // 这里放行不会经过 spring security Filter
                 "/swagger-ui.html",
                 "/swagger-ui/*",
                 "/swagger-resources/**",
@@ -58,21 +62,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/user/listAll").hasRole("Hello");
+        // 以下两个函数 均会在 Spring Security 最后的 Exception Filter 中处理
         // 登录后没有权限的处理逻辑
         http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {
+            ReturnVo<Object> failure = ReturnVo.failure(ReturnCode.FORBIDDEN);
+            // 设置编码 防止乱码问题
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json;charset=utf-8");
+            // 获取 writer 要在设置 ContentType 后
             PrintWriter writer = response.getWriter();
-            writer.write("Hello");
+            writer.write(JsonUtil.toJsonString(failure));
             writer.flush();
             writer.close();
         });
         // 未登录时的处理逻辑
         http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+            ReturnVo<Object> failure = ReturnVo.failure(ReturnCode.FORBIDDEN);
+            // 设置编码 防止乱码问题
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json;charset=utf-8");
             PrintWriter writer = response.getWriter();
-            writer.write("Hello2");
+            writer.write(JsonUtil.toJsonString(failure));
             writer.flush();
             writer.close();
         });
-        http.addFilterBefore(new JwtLoginFilter("/user/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+        http.addFilterBefore(
+                new JwtLoginFilter("/user/login", authenticationManager()),
+                UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

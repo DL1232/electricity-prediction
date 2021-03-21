@@ -1,7 +1,5 @@
 package com.decade.electricityprediction.security;
 
-import com.decade.electricityprediction.persistence.entity.PermissionEntity;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,7 +12,8 @@ public class MyUserDetails implements UserDetails {
 
     private String password;
 
-    private List<PermissionEntity> permissionList;
+    // 角色列表 用于授权
+    private List<GrantedAuthority> authorityList;
 
     public void setUsername(String username) {
         this.username = username;
@@ -24,13 +23,13 @@ public class MyUserDetails implements UserDetails {
         this.password = password;
     }
 
-    public void setPermissionList(List<PermissionEntity> permissionList) {
-        this.permissionList = permissionList;
+    public void setPermissionList(List<GrantedAuthority> authorityList) {
+        this.authorityList = authorityList;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return permissionList;
+        return authorityList;
     }
 
     @Override
@@ -61,5 +60,14 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "MyUserDetails{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorityList=" + authorityList +
+                '}';
     }
 }

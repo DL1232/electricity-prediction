@@ -28,21 +28,44 @@ public class ReturnVo<T> implements Serializable {
      */
     private T data;
 
+    /**
+     * 构造器私有 只能通过静态方法构造对象
+     *
+     * @param code    状态码
+     * @param message 提示信息
+     * @param data    数据
+     */
     private ReturnVo(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
+    /**
+     * 默认的成功返回
+     *
+     * @param data 数据
+     * @param <T>  data数据类型
+     * @return 返回对象
+     */
     public static <T> ReturnVo<T> success(T data) {
-        return new ReturnVo<>(200, "ok", data);
+        return success(ReturnCode.SUCCESS, data);
     }
 
-    public static <T> ReturnVo<T> failure(Integer code, String message, T data) {
-        return new ReturnVo<>(code, message, data);
+    /**
+     * 使用 枚举类 的成功返回
+     */
+    public static <T> ReturnVo<T> success(ReturnCode returnCode, T data) {
+        return new ReturnVo<>(returnCode.getCode(), returnCode.getMessage(), data);
     }
 
-    public static <T> ReturnVo<T> failure(ReturnCode returnCode, T data) {
-        return failure(returnCode.getCode(), returnCode.getMessage(), data);
+    /**
+     * 错误返回
+     *
+     * @param returnCode 错误码枚举
+     * @return 返回对象
+     */
+    public static <T> ReturnVo<T> failure(ReturnCode returnCode) {
+        return new ReturnVo<>(returnCode.getCode(), returnCode.getMessage(), null);
     }
 }

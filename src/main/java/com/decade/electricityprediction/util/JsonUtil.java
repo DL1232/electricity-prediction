@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JsonUtil {
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     static {
         // 对于空的对象转json的时候不抛出错误
@@ -29,9 +29,6 @@ public class JsonUtil {
 
     /**
      * 序列化，将对象转化为json字符串
-     *
-     * @param data
-     * @return
      */
     public static String toJsonString(Object data) {
         if (data == null) {
@@ -50,11 +47,6 @@ public class JsonUtil {
 
     /**
      * 反序列化，将json字符串转化为对象
-     *
-     * @param json
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public static <T> T parse(String json, Class<T> clazz) {
         T t = null;

@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * <p>
@@ -43,7 +44,6 @@ public class RoleEntity extends Model<RoleEntity> {
     private LocalDateTime gmtCreate;
 
     private LocalDateTime gmtModified;
-
 
     @Override
     protected Serializable pkVal() {

@@ -27,7 +27,7 @@ import org.springframework.security.core.GrantedAuthority;
 @EqualsAndHashCode(callSuper = false)
 @TableName("eps_permission")
 @ApiModel(value = "PermissionEntity对象", description = "")
-public class PermissionEntity extends Model<PermissionEntity> implements GrantedAuthority {
+public class PermissionEntity extends Model<PermissionEntity> {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,8 +51,4 @@ public class PermissionEntity extends Model<PermissionEntity> implements Granted
         return this.id;
     }
 
-    @Override
-    public String getAuthority() {
-        return permissionName;
-    }
 }

@@ -1,10 +1,13 @@
 package com.decade.electricityprediction.persistence.mapper;
 
 import com.decade.electricityprediction.ElectricityPredictionApplication;
+import com.decade.electricityprediction.persistence.entity.RoleEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @Slf4j
 @SpringBootTest(classes = ElectricityPredictionApplication.class)
@@ -15,8 +18,8 @@ public class RoleMapperTest {
 
     @Test
     public void findByRoleIdTest() {
-        Long roleIdByUserId = roleMapper.findRoleIdByUserId(2L);
-        log.info("role id:{}", roleIdByUserId);
+        List<RoleEntity> roleIdByUserId = roleMapper.findRoleIdByUserId(2L);
+        log.info("role list:{}", roleIdByUserId);
     }
 
 }

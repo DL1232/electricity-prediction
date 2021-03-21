@@ -12,14 +12,21 @@
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, role_name, role_desc, is_deleted, gmt_create, gmt_modified
-    </sql>
+    <!--    &lt;!&ndash; 通用查询结果列 &ndash;&gt;-->
+    <!--    <sql id="Base_Column_List">-->
+    <!--        id, role_name, role_desc, is_deleted, gmt_create, gmt_modified-->
+    <!--    </sql>-->
 
-    <select id="findRoleIdByUserId" parameterType="long" resultType="long">
-        SELECT role_id
-        FROM electricity_prediction.eps_user_role_relation
+    <select id="findRoleIdByUserId" parameterType="long" resultMap="BaseResultMap">
+        SELECT eps_role.id           AS id,
+               eps_role.role_name    AS role_name,
+               eps_role.role_desc    AS role_desc,
+               eps_role.is_deleted   AS is_deleted,
+               eps_role.gmt_create   AS gmt_create,
+               eps_role.gmt_modified AS gmt_modified
+        FROM electricity_prediction.eps_user_role_relation AS eps_user_role_relation
+                 LEFT JOIN electricity_prediction.eps_role AS eps_role
+                           ON eps_user_role_relation.role_id = eps_role.id
         WHERE user_id = #{userId}
     </select>
 
