@@ -5,6 +5,7 @@ import com.decade.electricityprediction.persistence.entity.UserEntity;
 import com.decade.electricityprediction.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +29,7 @@ public class UserController {
     public UserService userService;
 
     @GetMapping("/listAll")
+    @PreAuthorize("hasAnyRole('ROLE_admin', 'ROLE_user')")
     public List<UserEntity> listAll() {
         return userService.findAll();
     }

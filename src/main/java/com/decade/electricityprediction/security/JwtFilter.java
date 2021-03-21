@@ -1,5 +1,6 @@
 package com.decade.electricityprediction.security;
 
+import com.decade.electricityprediction.util.JsonUtil;
 import com.decade.electricityprediction.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -34,10 +37,10 @@ public class JwtFilter extends GenericFilterBean {
                 chain.doFilter(req, response);
                 return;
             }
-
+            userRole = userRole.replace("[", "");
+            userRole = userRole.replace("]", "");
             List<GrantedAuthority> grantedAuthorities =
                     AuthorityUtils.commaSeparatedStringToAuthorityList(userRole);
-
             // 日志 打印 一下 恢复的 权限
             log.info("{} Token 权限是:{}", username, grantedAuthorities);
 

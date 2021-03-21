@@ -39,7 +39,7 @@ public class MyUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorityList = new ArrayList<>();
         for (RoleEntity roleEntity :
                 roleEntityList) {
-            authorityList.add(new SimpleGrantedAuthority(roleEntity.getRoleName()));
+            authorityList.add(new SimpleGrantedAuthority("ROLE_" + roleEntity.getRoleName()));
         }
         MyUserDetails myUserDetails = new MyUserDetails();
         myUserDetails.setUsername(user.getUserName());
