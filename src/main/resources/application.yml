@@ -1,8 +1,26 @@
+server:
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:mysql://43.128.10.218:3306/electricity_prediction
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: lidongjie
     password: lidongjie0408
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
+
+#swagger:
+#  enabled: true
+#  title: 电力预测系统
+#  description: 一个简单的电力预测系统
+#  version: 0.1-SNAPSHOT
+#  contact:
+#    name: 李东杰
+#  base-package: com.decade.electricityprediction.web.controller
+#  exclude-path: /error
+#  ui-config:
+#    json-editor: true
+#  authorization:
+#    name: Authorization

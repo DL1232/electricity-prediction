@@ -1,5 +1,7 @@
 package com.decade.electricityprediction.util;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,21 +13,26 @@ import java.io.Serializable;
  * @since 2020/3/20
  */
 @Data
+@ApiModel(description = "返回响应数据")
 public class ReturnVo<T> implements Serializable {
 
     /**
      * 返回代码
      */
+    @ApiModelProperty("返回状态码")
     private Integer code;
 
     /**
      * 返回信息
      */
+    @ApiModelProperty("返回信息")
     private String message;
 
     /**
      * 返回数据
      */
+    @ApiModelProperty("返回数据")
+
     private T data;
 
     /**

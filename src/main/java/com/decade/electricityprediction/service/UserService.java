@@ -17,4 +17,6 @@ public interface UserService extends IService<UserEntity> {
 
     List<UserEntity> findAll();
 
+    UserEntity findById(Integer id);
+
 }

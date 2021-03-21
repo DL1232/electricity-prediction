@@ -27,4 +27,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     public List<UserEntity> findAll() {
         return userMapper.selectList(null);
     }
+
+    @Override
+    public UserEntity findById(Integer id) {
+        return userMapper.selectById(id);
+    }
 }

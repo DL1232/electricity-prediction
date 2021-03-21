@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
+        ///swagger-ui.html=anon;/webjars/**=anon;/swagger-resources/**=anon;/v2/api-docs/**=anon;/**=authc
         web.ignoring().antMatchers(HttpMethod.GET,
                 // 放行 swagger ui
                 // 这里放行不会经过 spring security Filter
