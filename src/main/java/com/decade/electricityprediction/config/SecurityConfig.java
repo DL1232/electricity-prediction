@@ -66,6 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        // 允许跨域
+        // http.cors().disable();
         // 以下两个函数 均会在 Spring Security 最后的 Exception Filter 中处理
         // 登录后没有权限的处理逻辑
         http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {

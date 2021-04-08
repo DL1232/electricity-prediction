@@ -20,11 +20,14 @@ public enum ReturnCode {
      * 输入格式有误
      */
     ILLEGAL_FORMAT(400, "输入格式有误"),
-
+    /**
+     * 输入格式有误
+     */
+    ILLEGAL_ARGUMENT(400, "参数有误"),
     /**
      * 403 Forbidden 没有权限
      */
-    FORBIDDEN(403,"没有访问权限");
+    FORBIDDEN(403, "没有访问权限");
 
     ReturnCode(Integer code, String message) {
         this.code = code;
@@ -49,4 +52,4 @@ public enum ReturnCode {
     public void setMessage(String message) {
         this.message = message;
     }
-    }
+}

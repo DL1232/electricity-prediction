@@ -17,6 +17,6 @@ import java.util.List;
 @Mapper
 public interface PermissionMapper extends BaseMapper<PermissionEntity> {
 
-    List<PermissionEntity> findByRoleId(Long id);
+    List<PermissionEntity> findByRoleId(Long roleId);
 
 }

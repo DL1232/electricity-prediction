@@ -27,7 +27,7 @@
         FROM electricity_prediction.eps_role_permission_relation
                  LEFT JOIN electricity_prediction.eps_permission
                            ON eps_role_permission_relation.permission_id = eps_permission.id
-        WHERE eps_role_permission_relation.role_id = #{userId}
+        WHERE eps_role_permission_relation.role_id = #{roleId}
     </select>
 
 </mapper>

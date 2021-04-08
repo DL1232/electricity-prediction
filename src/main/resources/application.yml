@@ -10,17 +10,3 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
-
-#swagger:
-#  enabled: true
-#  title: 电力预测系统
-#  description: 一个简单的电力预测系统
-#  version: 0.1-SNAPSHOT
-#  contact:
-#    name: 李东杰
-#  base-package: com.decade.electricityprediction.web.controller
-#  exclude-path: /error
-#  ui-config:
-#    json-editor: true
-#  authorization:
-#    name: Authorization

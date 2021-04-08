@@ -39,6 +39,12 @@ public class UserEntity extends Model<UserEntity> {
     @ApiModelProperty(value = "密码")
     private String userPassword;
 
+    private String userNickname;
+
+    private String userEmail;
+
+    private String userTelephone;
+
     @TableField("is_deleted")
     private Integer deleted;
 

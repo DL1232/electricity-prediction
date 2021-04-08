@@ -26,14 +26,13 @@ import java.util.List;
  * @since 2021-03-19
  */
 @RestController
-@RequestMapping("/user")
 @Api(tags = "用户管理")
 public class UserController {
 
     @Autowired
     public UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/user")
     @PreAuthorize("hasAnyRole('ROLE_admin', 'ROLE_user')")
     @ApiOperation(value = "查询所有用户")
     public ReturnVo<List<UserEntity>> listAll() {
@@ -41,7 +40,7 @@ public class UserController {
         return ReturnVo.success(userList);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     @PreAuthorize("hasAnyRole('ROLE_admin', 'ROLE_user')")
     @ApiOperation(value = "查询指定 id 用户")
     public ReturnVo<UserEntity> listById(@PathVariable String id) {
